@@ -13,7 +13,7 @@ function htmlTask() {
       fileInclude({
         prefix: "@@",
         basepath: "@file",
-      }),
+      })
     )
     .pipe(dest("dist"))
     .pipe(browserSync.stream());
@@ -61,34 +61,11 @@ function watchTask() {
   watch("src/app/data.json", dataTask).on("change", browserSync.reload);
 }
 
-function bootstrapCss() {
-  return src("node_modules/bootstrap/dist/css/bootstrap.min.css").pipe(
-    dest("dist/css"),
-  );
-}
-function bootstrapJs() {
-  return src("node_modules/bootstrap/dist/js/bootstrap.bundle.min.js").pipe(
-    dest("dist/js"),
-  );
-}
-function bootstrapIcons() {
-  return src("node_modules/bootstrap-icons/font/**/*", {
-    encoding: false,
-  }).pipe(dest("dist/css"));
-}
-function dataTask() {
-  return src("src/app/data.json", { allowEmpty: true }).pipe(dest("dist"));
-}
-const build = parallel(
-  htmlTask,
-  scssTask,
-  jsTask,
-  imgTask,
-  bootstrapCss,
-  bootstrapJs,
-  bootstrapIcons,
-  dataTask,
-);
+function bootstrapCss() { return src("node_modules/bootstrap/dist/css/bootstrap.min.css").pipe(dest("dist/css")); }
+function bootstrapJs() { return src("node_modules/bootstrap/dist/js/bootstrap.bundle.min.js").pipe(dest("dist/js")); }
+function bootstrapIcons() { return src("node_modules/bootstrap-icons/font/**/*", { encoding: false }).pipe(dest("dist/css")); }
+function dataTask() { return src("src/app/data.json", { allowEmpty: true }).pipe(dest("dist")); }
+const build = parallel(htmlTask, scssTask, jsTask, imgTask, bootstrapCss, bootstrapJs, bootstrapIcons, dataTask);
 
 exports.html = htmlTask;
 exports.scss = scssTask;

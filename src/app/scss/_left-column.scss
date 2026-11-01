@@ -1,3 +1,4 @@
+
 .resume-left-col {
   background-color: $bg-left;
   padding: 42px 40px 48px 50px;
@@ -38,7 +39,7 @@
 
 .skill-row {
   display: grid !important;
-  grid-template-columns: minmax(0, 1fr) 70px;
+  grid-template-columns: minmax(0, 1fr) 85px; // ліва колонка під текст, права фіксована 85px під трек
   align-items: center;
   column-gap: $spacing-unit;
 }

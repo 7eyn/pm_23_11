@@ -1,0 +1,37 @@
+{
+  "person": {
+    "firstName": "Олександр",
+    "lastName": "Луговий",
+    "email": "oleksandr.luhoviy@example.com",
+    "phone": "88005553535",
+    "address": "123 Main St, Anytown, USA",
+    "summary": "Experienced web designer with a passion for creating visually appealing and user-friendly websites.",
+    "skills": [
+      { "name": "HTML/CSS", "level": 100 },
+      { "name": "JavaScript", "level": 80 },
+      { "name": "React", "level": 75 },
+      { "name": "UI/UX Design", "level": 85 },
+      { "name": "Adobe Photoshop", "level": 70 }
+    ]
+  },
+  "jobs": [
+    {
+      "title": "Senior Web Designer",
+      "period": "2020 - Present",
+      "company": "Creative Agency / Chicago",
+      "description": "Creating and improving website designs."
+    },
+    {
+      "title": "Graphic Designer",
+      "period": "2015 - 2020",
+      "company": "Creative Market / Chicago",
+      "description": "Designing visual materials for clients."
+    },
+    {
+      "title": "Marketing Manager",
+      "period": "2013 - 2015",
+      "company": "Manufacturing Agency / NJ",
+      "description": "Planning and managing marketing campaigns."
+    }
+  ]
+}

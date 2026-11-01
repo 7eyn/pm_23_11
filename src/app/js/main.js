@@ -76,67 +76,61 @@ function renderSkills(skills) {
   });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  var person = {
-    firstName: "Олександр",
-    lastName: "Луговий",
-    email: "oleksandr.luhoviy@lpnu.ua",
-    phone: "88005553535",
-    address: "123 Main St, Anytown, USA",
-    summary:
-      "Experienced web designer with a passion for creating visually appealing and user-friendly websites. Skilled in HTML, CSS, JavaScript, and various design tools.",
-    skills: [
-      { name: "HTML/CSS", level: 100 },
-      { name: "JavaScript", level: 80 },
-      { name: "React", level: 75 },
-      { name: "UI/UX Design", level: 85 },
-      { name: "Adobe Photoshop", level: 70 },
-    ],
-  };
 
-  var jobs = [
-    {
-      title: "Senior Web Designer",
-      period: "2020 - Present",
-      company: "Creative Agency / Chicago",
-      description:
-        "Lorem Ipsum has been the industry's standard dummy text ever since 1500s, when unknown printer took a galley of type.",
-    },
-    {
-      title: "Graphic Designer",
-      period: "2015 - 2020",
-      company: "Creative Market / Chicago",
-      description:
-        "Lorem Ipsum has been the industry's standard dummy text ever since 1500s, when unknown printer took a galley of type.",
-    },
-    {
-      title: "Marketing Manager",
-      period: "2013 - 2015",
-      company: "Manufacturing Agency / NJ",
-      description:
-        "Lorem Ipsum has been the industry's standard dummy text ever since 1500s, when unknown printer took a galley of type.",
-    },
-  ];
+(function () {
+  "use strict";
 
-  document.querySelectorAll(".section-toggle").forEach(function (button) {
-    button.addEventListener("click", function () {
-      var content = document.getElementById(button.dataset.target);
-      var hidden = content.classList.toggle("is-hidden");
+  document.addEventListener("DOMContentLoaded", function () {
+    var toggleAvatarBtn = document.getElementById("toggleAvatarBtn");
+    var avatarContainer = document.getElementById("avatarContainer");
+    var avatarCircle = document.getElementById("avatarCircle");
+    var animateSkillsBtn = document.getElementById("animateSkillsBtn");
+    var printResumeBtn = document.getElementById("printResumeBtn");
 
-      button
-        .querySelector(".toggle-arrow")
-        .classList.toggle("is-rotated", hidden);
-      button.setAttribute("aria-expanded", String(!hidden));
-    });
+    function toggleAvatarStyle() {
+      if (!avatarCircle) {
+        return;
+      }
+      avatarCircle.classList.toggle("show-silhouette");
+    }
+
+    if (toggleAvatarBtn) {
+      toggleAvatarBtn.addEventListener("click", toggleAvatarStyle);
+    }
+
+    if (avatarContainer) {
+      avatarContainer.addEventListener("click", toggleAvatarStyle);
+    }
+
+    if (animateSkillsBtn) {
+      animateSkillsBtn.addEventListener("click", function () {
+        var fills = document.querySelectorAll(".skill-fill");
+        var i;
+        for (i = 0; i < fills.length; i++) {
+          fills[i].style.width = "0%";
+        }
+        setTimeout(function () {
+          var j;
+          for (j = 0; j < fills.length; j++) {
+            var target = fills[j].getAttribute("data-level") || "70";
+            fills[j].style.width = target + "%";
+          }
+        }, 180);
+      });
+    }
+
+    if (printResumeBtn) {
+      printResumeBtn.addEventListener("click", function () {
+        window.print();
+      });
+    }
   });
+})();
 
-  setPersonName(person);
-
-  document.getElementById("personEmail").textContent = person.email;
-  document.getElementById("personPhone").textContent = person.phone;
-  document.getElementById("personAddress").textContent = person.address;
-  document.getElementById("personSummary").textContent = person.summary;
-
-  renderSkills(person.skills);
-  renderJobs(jobs);
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.section-toggle').forEach(function(button) { button.addEventListener('click', function() {
+    var content = document.getElementById(button.dataset.target); var hidden = content.classList.toggle('is-hidden');
+    button.querySelector('.toggle-arrow').classList.toggle('is-rotated', hidden); button.setAttribute('aria-expanded', String(!hidden));
+  }); });
+  fetch('data.json').then(function(response) { if (!response.ok) throw new Error('HTTP ' + response.status); return response.json(); }).then(function(data) { setPersonName(data.person); document.getElementById('personEmail').textContent = data.person.email; document.getElementById('personPhone').textContent = data.person.phone; document.getElementById('personAddress').textContent = data.person.address; document.getElementById('personSummary').textContent = data.person.summary; renderSkills(data.person.skills); renderJobs(data.jobs); }).catch(function(error) { console.error(error); document.getElementById('dataError').textContent = 'Не вдалося завантажити дані. Запустіть сторінку через локальний сервер.'; });
 });

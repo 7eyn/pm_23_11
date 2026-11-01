@@ -1,3 +1,4 @@
+
 body {
   background-color: $bg-outer;
   font-family: $font-body;
@@ -6,6 +7,7 @@ body {
   padding: 0;
   -webkit-font-smoothing: antialiased;
 }
+
 
 .resume-page-wrapper {
   min-height: calc(100vh - 50px);
@@ -20,6 +22,7 @@ body {
   background-color: transparent;
   position: relative;
 }
+
 
 .section-heading {
   @extend %heading-font;
@@ -57,25 +60,14 @@ body {
   color: $text-light;
 }
 
+
 .resume-body-row {
   position: relative;
   z-index: 2;
 }
 
-.collapsible-content.is-hidden {
-  display: none !important;
-}
-.section-toggle {
-  border: 0;
-  background: transparent;
-  color: inherit;
-  cursor: pointer;
-  padding: 0.35rem;
-}
-.toggle-arrow {
-  display: inline-block;
-  transition: transform 0.2s;
-}
-.toggle-arrow.is-rotated {
-  transform: rotate(-90deg);
-}
+
+.collapsible-content.is-hidden { display: none !important; }
+.section-toggle { border: 0; background: transparent; color: inherit; cursor: pointer; padding: 0.35rem; }
+.toggle-arrow { display: inline-block; transition: transform .2s; }
+.toggle-arrow.is-rotated { transform: rotate(-90deg); }
