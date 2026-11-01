@@ -3,21 +3,31 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "start": "gulp",
+    "build": "gulp build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/7eyn/pm_23_12.git"
   },
-  "keywords": [],
+  "keywords": [
+    "gulp",
+    "bootstrap",
+    "scss",
+    "resume",
+    "variant-11"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/7eyn/pm_23_12/issues"
   },
   "homepage": "https://github.com/7eyn/pm_23_12#readme",
-  "description": "",
+  "description": "Variant 11 Resume - Noel Taylor (Bootstrap 5 + SCSS + Gulp)",
   "devDependencies": {
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.2",
     "browser-sync": "^3.0.4",
     "gulp": "^5.0.1",
     "gulp-concat": "^2.6.1",

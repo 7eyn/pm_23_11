@@ -8,7 +8,7 @@ const imagemin = require("gulp-imagemin");
 const browserSync = require("browser-sync").create();
 
 function htmlTask() {
-  return src("src/app/*.html")
+  return src("src/app/*.html", { allowEmpty: true })
     .pipe(
       fileInclude({
         prefix: "@@",
@@ -20,15 +20,16 @@ function htmlTask() {
 }
 
 function scssTask() {
-  return src("src/app/scss/**/*.scss")
+  return src("src/app/scss/main.scss")
     .pipe(sass().on("error", sass.logError))
     .pipe(cssnano())
+    .pipe(concat("index.min.css"))
     .pipe(dest("dist/css"))
     .pipe(browserSync.stream());
 }
 
 function jsTask() {
-  return src("src/app/js/**/*.js")
+  return src("src/app/js/**/*.js", { allowEmpty: true })
     .pipe(concat("main.min.js"))
     .pipe(uglify())
     .pipe(dest("dist/js"))
@@ -36,15 +37,20 @@ function jsTask() {
 }
 
 function imgTask() {
-  return src("src/app/imgs/**/*").pipe(imagemin()).pipe(dest("dist/imgs"));
+  return src("src/app/imgs/**/*", { encoding: false, allowEmpty: true })
+    .pipe(imagemin())
+    .pipe(dest("dist/imgs"));
 }
 
-function serveTask() {
+function serveTask(done) {
   browserSync.init({
     server: {
       baseDir: "dist",
     },
+    notify: false,
+    open: true,
   });
+  done();
 }
 
 function watchTask() {
@@ -52,9 +58,44 @@ function watchTask() {
   watch("src/app/scss/**/*.scss", scssTask);
   watch("src/app/js/**/*.js", jsTask);
   watch("src/app/imgs/**/*", imgTask);
+  watch("src/app/data.json", dataTask).on("change", browserSync.reload);
 }
 
-exports.default = series(
-  parallel(htmlTask, scssTask, jsTask, imgTask),
-  parallel(serveTask, watchTask),
+function bootstrapCss() {
+  return src("node_modules/bootstrap/dist/css/bootstrap.min.css").pipe(
+    dest("dist/css"),
+  );
+}
+function bootstrapJs() {
+  return src("node_modules/bootstrap/dist/js/bootstrap.bundle.min.js").pipe(
+    dest("dist/js"),
+  );
+}
+function bootstrapIcons() {
+  return src("node_modules/bootstrap-icons/font/**/*", {
+    encoding: false,
+  }).pipe(dest("dist/css"));
+}
+function dataTask() {
+  return src("src/app/data.json", { allowEmpty: true }).pipe(dest("dist"));
+}
+const build = parallel(
+  htmlTask,
+  scssTask,
+  jsTask,
+  imgTask,
+  bootstrapCss,
+  bootstrapJs,
+  bootstrapIcons,
+  dataTask,
 );
+
+exports.html = htmlTask;
+exports.scss = scssTask;
+exports.js = jsTask;
+exports.img = imgTask;
+exports.build = build;
+exports.default = series(build, parallel(serveTask, watchTask));
+
+exports.bootstrapCss = bootstrapCss;
+exports.bootstrapJs = bootstrapJs;
