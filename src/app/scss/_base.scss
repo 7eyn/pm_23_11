@@ -1,0 +1,68 @@
+
+body {
+  background-color: $bg-outer;
+  font-family: $font-body;
+  color: $text-dark;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+.resume-page-wrapper {
+  min-height: calc(100vh - 50px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.resume-sheet {
+  width: 100%;
+  max-width: 860px;
+  background-color: transparent;
+  position: relative;
+}
+
+
+.section-heading {
+  @extend %heading-font;
+}
+
+.icon-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.icon-circle--dark {
+  background-color: $text-dark;
+  color: $text-light;
+}
+
+.icon-circle--light {
+  background-color: $text-light;
+  color: $text-dark;
+}
+
+.section-title {
+  font-family: $font-heading;
+  font-size: 1.15rem;
+  letter-spacing: 1px;
+  color: $text-dark;
+}
+
+.section-title--light {
+  color: $text-light;
+}
+
+
+.resume-body-row {
+  position: relative;
+  z-index: 2;
+}
+

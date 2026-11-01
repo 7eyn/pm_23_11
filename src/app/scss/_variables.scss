@@ -1,0 +1,21 @@
+// Variables
+$bg-outer: #222222;
+$bg-banner: #e4e4e4;
+$bg-left: #ffffff;
+$bg-pillar: #2b2b2b;
+$text-dark: #2b2b2b;
+$text-muted-body: #555555;
+$text-light: #ffffff;
+$text-pillar-muted: #cccccc;
+$avatar-gray: #a6a6a6;
+$skill-fill: #646464;
+$skill-border: #8c8c8c;
+$sheet-radius: 42px;
+
+$font-heading: "Montserrat", sans-serif;
+$font-body: "Open Sans", sans-serif;
+
+
+$spacing-unit: 8px;
+@mixin centered { display: flex; align-items: center; justify-content: center; }
+%heading-font { font-family: $font-heading; }
